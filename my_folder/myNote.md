@@ -258,8 +258,8 @@ Remote：远程仓库
 ---
 - 在当前目录新建一个Git代码库
 $ git init
-- 新建一个目录，将其初始化为Git代码库
-$ git init [project-name]
+- 新建一个目录，将其初始化为Git代码库 这个 用在本地新建 推送到远程git 服务上的。
+$ git init [project-name]  
 - 下载一个项目和它的整个代码历史
 $ git clone [url]
 
@@ -501,6 +501,59 @@ $ git revert [commit]
 ---
 - 生成一个可供发布的压缩包
 $ git archive
+
+```perl
+git config --user.username 'xxx'
+git config --user.emal 'xxx'
+git config --list 
+
+git config --help
+##情况 1： 本地已经创建了项目,希望用git 来管理
+git init 
+git status
+git add 
+git commit
+git reset 
+git log
+
+
+---
+##情况 2： 远程仓库里的项目，希望下载下来继续开发
+git clone <url> <where to clone>
+git remote -v
+git branch -a 
+
+git diff
+git status
+git add -A
+git commit -m ''
+
+git pull origin master 
+git push origin master
+git branch 分支名称
+git branch  --查看all分支
+
+git checkout 分支名称
+
+git push -u origin 本地分支名称
+git branch -a 
+
+git branch  --merged   --查看哪些分支被merge 了
+git merge 分支名称  --merge 这个分支到当前分支
+git push origin master
+ 
+ ## 删除分支
+ git branch --merged
+ git branch  -d 分支名称
+ git branch -a 
+ git push origin --delete 分支名称
+ 
+--------------------------
+以上只是基本常规操作
+--------------------------
+
+
+```
 
 ---------------------------------------====================================
 连接远程服务器：
