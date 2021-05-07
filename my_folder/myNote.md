@@ -1,5 +1,5 @@
 
-<p align="center"  style="font-size:30px;color:purple">myNote</p>
+<p align="center"  style="font-size:30px;color:purple">*** <b>myNote</b> ***</p>
 
 ### java
 ---
@@ -7,6 +7,15 @@
 > -   接收json 参数  ： @RequestBody 
 
 #### jvm
+
+- **java 执行class 文件问题**
+
+~~~txt
+
+一、java执行class文件是根据CLASSPATH指定的地方来找，不是我们理解当前目录。如果希望它查询当前目录，需要在CLASSPATH中加入“.;”,代表当前目录。
+
+二、java执行class文件对package的路径是强依赖的。它在执行的时候会严格以当前用户路径为基础，按照package指定的包路径转化为文件路径去搜索class文件。各位同学以后注意就OK啦。至于网上说的要在CLASSPATH要加各种包等等都是泛泛而谈，真正静下心分析这个问题的资料不多。很多都没有说到点子上，会误导人的。
+~~~
 ---
 
 #### spring
@@ -123,7 +132,112 @@ mysql> mysql -u root -p -h test < test.sql
 ----
 ----
 
+### Maven 
+---
+https://www.w3cschool.cn/maven/varq1ht4.html
 
+>> 约定优于配置  Maven 使用约定而不是配置，意味着开发者不需要再自己创建构建过程。
+
+开发者不需要再关心每一个配置细节。Maven 为工程提供了合理的默认行为。当创建 Maven 工程时，Maven 会创建默认的工程结构。开发者只需要合理的放置文件，而在 pom.xml 中不再需要定义任何配置。
+
+举例说明，下面的表格展示了工程源码文件、资源文件的默认配置，和其他一些配置。假定 ${basedir} 表示工程目录：
+|   配置项  |     默认值  |
+| --- | --- |
+|   source code  |    ${basedir}/src/main/java |
+|   resources  |   ${basedir}/src/main/resources  |
+|   Tests  |  ${basedir}/src/test   |
+|   Complied byte code  |  ${basedir}/target   |
+|   distributable JAR  |   ${basedir}/target/classes  |
+
+
+为了构建工程，Maven 为开发者提供了选项来配置生命周期目标和工程依赖（依赖于 Maven 的插件扩展功能和默认的约定）。大部分的工程管理和构建相关的任务是由 Maven 插件完成的。
+
+开发人员不需要了解每个插件是如何工作的，就能够构建任何给定的 Maven 工程。详细内容请参考 Maven 插件部分。
+
+**环境要求**
+   JDK : 
+   Maven 3.3 要求 JDK 1.7 或以上 ；
+   Maven 3.2 要求 JDK 1.6 或以上  
+   Maven 3.0/3.1 要求 JDK 1.5 或以上  
+
+ **环境配置**
+```txt
+操作系统 输出
+Windows:使用系统属性设置环境变量。
+M2_HOME=C:\Program Files\Apache Software Foundation\apache-maven-3.2.5
+M2=%M2_HOME%\bin
+MAVEN_OPTS=-Xms256m -Xmx512m
+
+Linux:打开命令终端设置环境变量。
+export M2_HOME=/usr/local/apache-maven/apache-maven-3.2.5
+export M2=$M2_HOME/bin
+export MAVEN_OPTS=-Xms256m -Xmx512m
+
+Mac:打开命令终端设置环境变量。
+export M2_HOME=/usr/local/apache-maven/apache-maven-3.2.5
+export M2=$M2_HOME/bin
+export MAVEN_OPTS=-Xms256m -Xmx512m
+
+
+```
+并将配置的环境变量配置到系统 path 中或者etc/profile 中。
+
+----
+- **pom相关**
+需要说明的是每个工程应该只有一个 POM 文件。
+
+所有的 POM 文件需要 project 元素和三个必须的字段：groupId, artifactId,version。
+在仓库中的工程标识为 groupId:artifactId:version
+POM.xml 的根元素是 project，它有三个主要的子节点：
+
+>1. groupId：这是工程组的标识。它在一个组织或者项目中通常是唯一的。例如，一个银行组织 com.company.bank 拥有所有的和银行相关的项目。
+>2. artifactId：这是工程的标识。它通常是工程的名称。例如，消费者银行。groupId 和 artifactId 一起定义了 artifact 在仓库中的位置。
+>3. version：这是工程的版本号。在 artifact 的仓库中，它用来区分不同的版本。例如：
+>com.company.bank:consumer-banking:1.0
+>com.company.bank:consumer-banking:1.1.
+
+#### maven  构建配置文件
+> 构建配置文件是一组配置的集合，用来设置或者覆盖 Maven 构建的默认配置。使用构建配置文件，可以为不同的环境定制构建过程，例如 Producation 和 Development 环境。
+
+- Profile 主要有三种类型。
+
+|    类型     |                           在哪里定义                           |
+| ----------- | ------------------------------------------------------------- |
+| Per Project | 定义在工程 POM 文件 pom.xml 中                                  |
+| Per User    | 定义在 Maven 设置 xml 文件中 （%USER_HOME%/.m2/settings.xml）    |
+| Global      | 定义在 Maven 全局配置 xml 文件中 （%M2_HOME%/conf/settings.xml） |
+
+在 maven_path/conf/settings.xml 下配置 激活profile
+
+  ```xml
+  <activeProfiles>
+    <activeProfile>development</activeProfile>
+  </activeProfiles>
+  ```
+-  **Maven 仓库有三种类型：**
+* 本地（local）
+* 中央（central）
+* 远程（remote）
+
+#### **maven 添加外部依赖 （中央仓库，私服仓库都找不到jar 的情况下）**
+
+```xml
+<!-- 在src 目录下 lib 文件夹下存放 外部jar  -->
+         <dependency>
+             <groupId>ldapjdk</groupId>
+             <artifactId>ldapjdk</artifactId>
+             <scope>system</scope>
+             <version>1.0</version>
+             <systemPath>${basedir}\src\lib\ldapjdk.jar</systemPath>
+          </dependency>
+```
+>外部依赖（library jar location）能够像其他依赖一样在 pom.xml 中配置。
+>指定 groupId 为 library 的名称。
+>指定 artifactId 为 library 的名称。
+>指定作用域（scope）为系统。
+>指定相对于工程位置的系统路径。
+
+### Gradle 
 
 ### vue 
 
@@ -580,25 +694,19 @@ google-chrome-73.0.3683.86-1-x86_64.pkg.tar.xz
 #### svn
 
 ----
-----
+[svn 主页 下载地址](https://tortoisesvn.net/index.zh.html)
+
 ----
 
-### windows
-#### windows cmd 常用命令
-> 
+## windows
+### windows cmd 常用命令
 > 1、Windows常用命令~~~~打开命令窗口(WIN建+R)
 >>1.calc：启动计算器
-
 >>2.appwiz.cpl：程序和功能
-
 >>3.certmgr.msc：证书管理实用程序
-
 >>4.charmap：启动字符映射表
-
 >>5.chkdsk.exe：Chkdsk磁盘检查(管理员身份运行命令提示符)
-
 >>6.cleanmgr: 打开磁盘清理工具
-
 >>7.cliconfg：SQL SERVER 客户端网络实用工具
 
 >>8.cmstp：连接管理器配置文件安装程序
@@ -1036,6 +1144,52 @@ google-chrome-73.0.3683.86-1-x86_64.pkg.tar.xz
 > 
 
 ------
+
+## 网络
+### http 
+-- HTTP中post和put的根本区别和优势
+```text
+作者：知乎用户
+链接：https://www.zhihu.com/question/48482736/answer/139024541
+
+put和post的技术实现上应该是没有很大区别的。但在于协议上语义是很大区别。那么区别是什么？
+首先，HTTP协议使用的是URI，是一种表示资源标志，那么对应的HTTP Verb就是各种对资源的操作，GET，PUT，DELETE等，明确这些，再往下看。
+PUT：client对一个URI发送一个Entity，服务器在这个URI下如果已经又了一个Entity，那么此刻服务器应该替换成client重新提交的，也由此保证了PUT的幂等性。
+如果服务器之前没有Entity ，那么服务器就应该将client提交的放在这个URI上。总结一个字：PUT。对的，PUT的方法就是其字面表意，将client的资源放在请求URI上。
+对于服务器到底是创建还是更新，由服务器返回的HTTP Code来区别。注：通过上面可以知道，如果用PUT来达到更改资源，需要client提交资源全部信息，
+如果只有部分信息，不应该使用PUT（因为服务器使用client提交的对象整体替换服务器的资源）。
+
+POST：这个Verb是比较特殊。不同于一般的增删改，使用场景比较多。根据RFC文档上描述，有以下几个场景：（https://tools.ietf.org/html/rfc2616#section-9.5）- Annotation of existing resources;
+
+- Posting a message to a bulletin board, newsgroup, mailing list, or   
+  similar group of articles;
+
+- Providing a block of data, such as the result of submitting a
+  form, to a data-handling process;
+  
+- Extending a database through an append operation.因为服务器在实现POST是不可预知，所以将其定义为不安全、不幂等的Verb。
+- 基本上不能方便的归纳为“增删改”之类的行为，都可以使用POST方法。（可以用于“创建不由client决定URI的资源”，但本质上跟第三个有点儿类似，所以我在使用时，基本按照第三个去理解）。
+另外使用POST去实现“部分更新资源”可以不错的。如果只有语义上的区别，那么不遵守有什么问题呢？如果只是个人开发或者公司内部这么规定，那也没有很大问题。但是规范上来说，不好。规范带来的好处是很多的，就像是开发人员的语言一样，当大家遵守同样的规范，沟通才更容易，不至于导致出现问题。
+公司内部还行，但是如果牵涉到外部工具或者其他公司开发合作，那还是会有问题的。举个比较严重的例子。chrome浏览器为了加快页面加载，会在页面预加载某些GET链接(跳转链接，非资源链接)，这样用户点那个链接时，加载速度就很快。有一个图片还是什么网站，使用GET请求，参数里面有个OPT用来表示动作。用户打开页面时，嵌入了OPT=“DEL”的链接在图片附近的表单中，然后就被Chrome删除了。再举个其他可能接触的例子。公司可能使用工具解析client请求，来分析请求的分布等信息。如果client的User-Agent字段没有遵守协议标准，那么工具将无法正确统计，这样的例子很多。标准的存在意义就是为了统一概念，这样即使从未见面的人，各个国家不同语种的人，甚至火星人也能轻松交流。最好的例子就是数学了
+@@ 一个例子是网不好的时候，post提交后没收到响应，于是客户端再次尝试提交，成功后刷新看到新建了两条资源，如果用put的话就不会出现这样的情况。所以尽量使用put去代替pos
+==================================================================================
+[HTTP POST GET 本质区别详解](https://zhuanlan.zhihu.com/p/158935396)
+[get 和post 的区别](https://blog.csdn.net/gideal_wang/article/details/4316691)
+ajax 使用的对象 xmlhttpRequest 动态代理。
+```
+
+### some code
+#### 分页calculate
+```java
+ // 分页计算 --使用于 mysql
+     if(null == pageable){
+            start=0;
+            end =20;
+        }else{
+            start=pageable.getPageNum()>1?pageable.getPageSize()*(pageable.getPageNumber()-1):0;
+            end=pageable.getPageNum()>1?pageable.getPageSize()*(pageable.getPageNumber()):pageable.getPageSize();
+        }
+```
 
 
 
