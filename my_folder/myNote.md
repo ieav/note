@@ -237,6 +237,56 @@ POM.xml 的根元素是 project，它有三个主要的子节点：
 >指定作用域（scope）为系统。
 >指定相对于工程位置的系统路径。
 
+#### maven 模板
+~~~xml
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+  http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.companyname.insurance</groupId>
+  <artifactId>health</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>health</name>
+  <url>http://maven.apache.org</url>
+  <properties>
+     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencies>
+     <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>3.8.1</version>
+        <scope>test</scope>
+     </dependency>
+      <dependency>
+         <groupId>data-service</groupId>
+         <artifactId>data-service</artifactId>
+         <version>1.0-SNAPSHOT</version>
+         <scope>test</scope>
+     </dependency>
+  </dependencies>
+</project>
+
+~~~
+#### maven 快照
+虽然，对于快照，Maven 每次自动获取最新的快照，但你可以在任何 maven 命令中使用 -U 参数强制 maven 下载最新的快照。
+```cmd
+    mvn clean package -U
+```
+
+
+#### Apache Maven 构建自动化
+
+#### 
+
+#### 
+
+#### 
+
+
 ### Gradle 
 
 ### vue 
@@ -611,7 +661,7 @@ $ git reset --keep [commit]
 $ git revert [commit]
 
 
-> 十、其他
+##### 十、git 简单操作
 ---
 - 生成一个可供发布的压缩包
 $ git archive
