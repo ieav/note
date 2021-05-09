@@ -716,6 +716,35 @@ git push origin master
 以上只是基本常规操作
 --------------------------
 
+**--------------------------
+常用命令
+--------------------------**
+
+命令	说明
+git init	初始化git本地库
+git add .	将当前文件夹下的所有文件添加到git的跟踪中，意思就是交给git经管，提交到本地库，暂存所有的更改
+git checkout .	丢弃所有的更改
+git add src	将文件夹src提交到本地库
+git commit -m "first commit" (也可以是-am)	提交并写提交信息
+git remote add origin git@github.com:zhchji777/ShoppingMall.git	设置远程库
+git remote set-url origin 你的远端地址	设置远端仓库地址
+Git config –global user.name “用户名 ” ，git config –global user.email 邮箱地址	设置用户名和邮箱
+git push -u origin master (也可强制提交git push -u -f origin master)	将本地变更推送到远程库 (出错时可先执行git pull)
+git pull --rebase origin master	将远程库变更更新到本地库
+git clone git＠github.com:zhchji7/zhchji-gitgub.git	将github上的项目down下来
+git status	状态查询命令
+git branch	查看位置
+git checkout -b V1.0.1 origin/master	创建分支
+git push origin HEAD -u	将分支推送到远程
+git checkout master	切换回master分支
+git remote –v	查看远端地址
+git config --list	查看配置
+git config –global https.proxy http://127.0.0.1:1080	设置代理
+git config --global http.proxy	查看代理
+git config –global –unset https.proxy	取消设置代理
+git rm -r --cached < file name >	移除对文件的跟踪
+
+git remote add origin https://github.com/ieav/gittest.git
 
 ```
 
