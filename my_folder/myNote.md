@@ -665,6 +665,8 @@ $ git revert [commit]
 
 
 ##### 十、git 简单操作
+###### git 学习地址
+>> https://learngitbranching.js.org/
 ---
 - 生成一个可供发布的压缩包
 $ git archive
