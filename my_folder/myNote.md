@@ -76,9 +76,9 @@ DestructionAwareBeanPostProcessor.postProcessBeforeDestruction(): 在销毁之�
 ---
 
 
-#### mysql
+### mysql
 ---
-### mysql 安装
+#### mysql 安装~~~~
 > 参考链接：[mysql 安装链接： https://blog.csdn.net/qq_16183731/article/details/86516468](https://blog.csdn.net/qq_16183731/article/details/86516468)
 * mysql 安装后生成临密码
 ./mysqld --initialize --user=xzb --basedir=/opt/modules/mysql --datadir=/opt/modules/mysql/data
@@ -159,6 +159,10 @@ mysql> mysql -u root -p -h test < test.sql
 ---
 ----
 ----
+
+### java 后端模板语言
+#### thymeleaf  
+https://www.cnblogs.com/msi-chen/p/10974009.html
 
 
 ### nginx 
